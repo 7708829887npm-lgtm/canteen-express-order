@@ -33,11 +33,8 @@ export const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link to="/menu/veg" className="text-sm font-medium hover:text-primary transition-colors">
-            Veg Menu
-          </Link>
-          <Link to="/menu/non-veg" className="text-sm font-medium hover:text-primary transition-colors">
-            Non-Veg Menu
+          <Link to="/menu" className="text-sm font-medium hover:text-primary transition-colors">
+            Menu
           </Link>
           <Link to="/offers" className="text-sm font-medium hover:text-primary transition-colors">
             Special Offers
