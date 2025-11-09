@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useCart } from "@/contexts/CartContext";
-import { Loader2, ShoppingCart, Leaf, Drumstick } from "lucide-react";
+import { Loader2, ShoppingCart, Leaf, Drumstick, Egg } from "lucide-react";
 
 interface MenuItem {
   id: string;
@@ -23,6 +23,7 @@ interface MenuItem {
 
 const MenuUnified = () => {
   const [vegItems, setVegItems] = useState<MenuItem[]>([]);
+  const [eggItems, setEggItems] = useState<MenuItem[]>([]);
   const [nonVegItems, setNonVegItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
@@ -42,9 +43,11 @@ const MenuUnified = () => {
       if (error) throw error;
 
       const veg = data?.filter((item) => item.type === "veg") || [];
+      const egg = data?.filter((item) => item.type === "egg") || [];
       const nonVeg = data?.filter((item) => item.type === "non-veg") || [];
 
       setVegItems(veg);
+      setEggItems(egg);
       setNonVegItems(nonVeg);
     } catch (error: any) {
       toast.error("Failed to load menu items");
@@ -71,7 +74,7 @@ const MenuUnified = () => {
     return price * (1 - discount / 100);
   };
 
-  const renderMenuItems = (items: MenuItem[], isVeg: boolean) => {
+  const renderMenuItems = (items: MenuItem[], itemType: "veg" | "egg" | "non-veg") => {
     if (loading) {
       return (
         <div className="flex justify-center items-center py-20">
@@ -87,6 +90,35 @@ const MenuUnified = () => {
         </div>
       );
     }
+
+    const getIconConfig = () => {
+      switch (itemType) {
+        case "veg":
+          return {
+            icon: Leaf,
+            color: "text-green-600",
+            borderColor: "border-green-600",
+            bgColor: "text-green-600"
+          };
+        case "egg":
+          return {
+            icon: Egg,
+            color: "text-amber-600",
+            borderColor: "border-amber-600",
+            bgColor: "text-amber-600"
+          };
+        case "non-veg":
+          return {
+            icon: Drumstick,
+            color: "text-orange-600",
+            borderColor: "border-orange-600",
+            bgColor: "text-orange-600"
+          };
+      }
+    };
+
+    const config = getIconConfig();
+    const IconComponent = config.icon;
 
     return (
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -109,11 +141,7 @@ const MenuUnified = () => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    {isVeg ? (
-                      <Leaf className="h-16 w-16 text-green-600" />
-                    ) : (
-                      <Drumstick className="h-16 w-16 text-orange-600" />
-                    )}
+                    <IconComponent className={`h-16 w-16 ${config.bgColor}`} />
                   </div>
                 )}
                 {item.is_special_offer && (
@@ -122,15 +150,9 @@ const MenuUnified = () => {
                   </Badge>
                 )}
                 <div className="absolute top-2 left-2">
-                  {isVeg ? (
-                    <div className="bg-white rounded-sm p-1 border-2 border-green-600">
-                      <Leaf className="h-4 w-4 text-green-600" fill="currentColor" />
-                    </div>
-                  ) : (
-                    <div className="bg-white rounded-sm p-1 border-2 border-orange-600">
-                      <Drumstick className="h-4 w-4 text-orange-600" fill="currentColor" />
-                    </div>
-                  )}
+                  <div className={`bg-white rounded-sm p-1 border-2 ${config.borderColor}`}>
+                    <IconComponent className={`h-4 w-4 ${config.color}`} fill="currentColor" />
+                  </div>
                 </div>
               </div>
               <CardContent className="p-4">
@@ -183,10 +205,14 @@ const MenuUnified = () => {
 
         <Tabs defaultValue="veg" className="w-full">
           <div className="flex justify-center mb-8">
-            <TabsList className="grid w-full max-w-md grid-cols-2 h-12">
+            <TabsList className="grid w-full max-w-2xl grid-cols-3 h-12">
               <TabsTrigger value="veg" className="text-base data-[state=active]:bg-green-50 data-[state=active]:text-green-700">
                 <Leaf className="h-5 w-5 mr-2" />
                 Veg Menu
+              </TabsTrigger>
+              <TabsTrigger value="egg" className="text-base data-[state=active]:bg-amber-50 data-[state=active]:text-amber-700">
+                <Egg className="h-5 w-5 mr-2" />
+                Egg Menu
               </TabsTrigger>
               <TabsTrigger value="non-veg" className="text-base data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700">
                 <Drumstick className="h-5 w-5 mr-2" />
@@ -196,11 +222,15 @@ const MenuUnified = () => {
           </div>
 
           <TabsContent value="veg" className="mt-6">
-            {renderMenuItems(vegItems, true)}
+            {renderMenuItems(vegItems, "veg")}
+          </TabsContent>
+
+          <TabsContent value="egg" className="mt-6">
+            {renderMenuItems(eggItems, "egg")}
           </TabsContent>
 
           <TabsContent value="non-veg" className="mt-6">
-            {renderMenuItems(nonVegItems, false)}
+            {renderMenuItems(nonVegItems, "non-veg")}
           </TabsContent>
         </Tabs>
       </div>
