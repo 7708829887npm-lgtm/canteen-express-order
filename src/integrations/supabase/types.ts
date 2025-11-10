@@ -81,6 +81,7 @@ export type Database = {
           discount_percentage: number | null
           id: string
           image_url: string | null
+          ingredients: string | null
           is_available: boolean | null
           is_special_offer: boolean | null
           name: string
@@ -95,6 +96,7 @@ export type Database = {
           discount_percentage?: number | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           is_available?: boolean | null
           is_special_offer?: boolean | null
           name: string
@@ -109,6 +111,7 @@ export type Database = {
           discount_percentage?: number | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           is_available?: boolean | null
           is_special_offer?: boolean | null
           name?: string

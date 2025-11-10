@@ -26,6 +26,14 @@ import cheesePizzaImg from "@/assets/menu/cheese-pizza.jpg";
 import frenchFriesImg from "@/assets/menu/french-fries.jpg";
 import coldCoffeeImg from "@/assets/menu/cold-coffee.jpg";
 import vanillaIceCreamImg from "@/assets/menu/vanilla-ice-cream.jpg";
+import vegBurgerImg from "@/assets/menu/veg-burger.jpg";
+import dalMakhaniImg from "@/assets/menu/dal-makhani.jpg";
+import vegFriedRiceImg from "@/assets/menu/veg-fried-rice.jpg";
+import chickenBurgerImg from "@/assets/menu/chicken-burger.jpg";
+import grilledChickenImg from "@/assets/menu/grilled-chicken.jpg";
+import vegPuffImg from "@/assets/menu/veg-puff.jpg";
+import chickenPuffImg from "@/assets/menu/chicken-puff.jpg";
+import chocolateIceCreamImg from "@/assets/menu/chocolate-ice-cream.jpg";
 
 interface MenuItem {
   id: string;
@@ -37,6 +45,7 @@ interface MenuItem {
   is_special_offer: boolean;
   discount_percentage: number;
   type: string;
+  ingredients: string | null;
 }
 
 const MenuUnified = () => {
@@ -68,6 +77,14 @@ const MenuUnified = () => {
     "French Fries": frenchFriesImg,
     "Cold Coffee": coldCoffeeImg,
     "Vanilla Ice Cream": vanillaIceCreamImg,
+    "Veg Burger": vegBurgerImg,
+    "Dal Makhani": dalMakhaniImg,
+    "Veg Fried Rice": vegFriedRiceImg,
+    "Chicken Burger": chickenBurgerImg,
+    "Grilled Chicken": grilledChickenImg,
+    "Veg Puff": vegPuffImg,
+    "Chicken Puff": chickenPuffImg,
+    "Chocolate Ice Cream": chocolateIceCreamImg,
   };
 
   const fetchMenuItems = async () => {
@@ -196,8 +213,13 @@ const MenuUnified = () => {
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
                 {item.description && (
-                  <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                  <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
                     {item.description}
+                  </p>
+                )}
+                {item.ingredients && (
+                  <p className="text-xs text-muted-foreground mb-3 italic">
+                    Ingredients: {item.ingredients}
                   </p>
                 )}
                 <div className="flex items-center justify-between">
