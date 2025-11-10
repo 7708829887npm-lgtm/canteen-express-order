@@ -9,6 +9,24 @@ import { toast } from "sonner";
 import { useCart } from "@/contexts/CartContext";
 import { Loader2, ShoppingCart, Leaf, Drumstick, Egg } from "lucide-react";
 
+// Import menu images
+import masalaDosaImg from "@/assets/menu/masala-dosa.jpg";
+import idliImg from "@/assets/menu/idli.jpg";
+import vadaImg from "@/assets/menu/vada.jpg";
+import chickenBiryaniImg from "@/assets/menu/chicken-biryani.jpg";
+import filterCoffeeImg from "@/assets/menu/filter-coffee.jpg";
+import paneerButterMasalaImg from "@/assets/menu/paneer-butter-masala.jpg";
+import samosaImg from "@/assets/menu/samosa.jpg";
+import gulabJamunImg from "@/assets/menu/gulab-jamun.jpg";
+import eggDosaImg from "@/assets/menu/egg-dosa.jpg";
+import eggFriedRiceImg from "@/assets/menu/egg-fried-rice.jpg";
+import eggPuffImg from "@/assets/menu/egg-puff.jpg";
+import butterChickenImg from "@/assets/menu/butter-chicken.jpg";
+import cheesePizzaImg from "@/assets/menu/cheese-pizza.jpg";
+import frenchFriesImg from "@/assets/menu/french-fries.jpg";
+import coldCoffeeImg from "@/assets/menu/cold-coffee.jpg";
+import vanillaIceCreamImg from "@/assets/menu/vanilla-ice-cream.jpg";
+
 interface MenuItem {
   id: string;
   name: string;
@@ -31,6 +49,26 @@ const MenuUnified = () => {
   useEffect(() => {
     fetchMenuItems();
   }, []);
+
+  // Map of item names to imported images
+  const imageMap: Record<string, string> = {
+    "Masala Dosa": masalaDosaImg,
+    "Idli": idliImg,
+    "Medu Vada": vadaImg,
+    "Chicken Biryani": chickenBiryaniImg,
+    "Filter Coffee": filterCoffeeImg,
+    "Paneer Butter Masala": paneerButterMasalaImg,
+    "Samosa": samosaImg,
+    "Gulab Jamun": gulabJamunImg,
+    "Egg Dosa": eggDosaImg,
+    "Egg Fried Rice": eggFriedRiceImg,
+    "Egg Puff": eggPuffImg,
+    "Butter Chicken": butterChickenImg,
+    "Cheese Pizza": cheesePizzaImg,
+    "French Fries": frenchFriesImg,
+    "Cold Coffee": coldCoffeeImg,
+    "Vanilla Ice Cream": vanillaIceCreamImg,
+  };
 
   const fetchMenuItems = async () => {
     try {
@@ -133,9 +171,9 @@ const MenuUnified = () => {
               className="overflow-hidden hover:shadow-[var(--shadow-card)] transition-shadow border-2 hover:border-primary/30"
             >
               <div className="relative h-48 bg-muted">
-                {item.image_url ? (
+                {imageMap[item.name] ? (
                   <img
-                    src={item.image_url}
+                    src={imageMap[item.name]}
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />
