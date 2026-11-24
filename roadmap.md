@@ -1,0 +1,3 @@
+- [ ] Ensure every vegetarian menu item displays its matching picture.
+- [ ] Check the other menu items for missing pictures and provide suitable images.
+- [ ] Verify the menu image display in the preview and commit the changes.

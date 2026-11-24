@@ -34,6 +34,18 @@ import grilledChickenImg from "@/assets/menu/grilled-chicken.jpg";
 import vegPuffImg from "@/assets/menu/veg-puff.jpg";
 import chickenPuffImg from "@/assets/menu/chicken-puff.jpg";
 import chocolateIceCreamImg from "@/assets/menu/chocolate-ice-cream.jpg";
+import pongalImg from "@/assets/menu/pongal.jpg";
+import plainDosaImg from "@/assets/menu/plain-dosa.jpg";
+import vegMealsImg from "@/assets/menu/veg-meals.jpg";
+import vegComboMealImg from "@/assets/menu/veg-combo-meal.jpg";
+import mojitoImg from "@/assets/menu/mojito.jpg";
+import mangoMilkshakeImg from "@/assets/menu/mango-milkshake.jpg";
+import chocolateMilkshakeImg from "@/assets/menu/chocolate-milkshake.jpg";
+import chocolateBarsImg from "@/assets/menu/chocolate-bars.jpg";
+import freshLimeSodaImg from "@/assets/menu/fresh-lime-soda.jpg";
+import chickenComboMealImg from "@/assets/menu/chicken-combo-meal.jpg";
+import chickenFriedRiceImg from "@/assets/menu/chicken-fried-rice.jpg";
+import eggCurryImg from "@/assets/menu/egg-curry.jpg";
 
 interface MenuItem {
   id: string;
@@ -62,6 +74,8 @@ const MenuUnified = () => {
   // Map of item names to imported images
   const imageMap: Record<string, string> = {
     "Masala Dosa": masalaDosaImg,
+    "Plain Dosa": plainDosaImg,
+    "Pongal": pongalImg,
     "Idli": idliImg,
     "Medu Vada": vadaImg,
     "Chicken Biryani": chickenBiryaniImg,
@@ -69,22 +83,33 @@ const MenuUnified = () => {
     "Paneer Butter Masala": paneerButterMasalaImg,
     "Samosa": samosaImg,
     "Gulab Jamun": gulabJamunImg,
+    "Cheese Pizza": cheesePizzaImg,
+    "French Fries": frenchFriesImg,
+    "Chocolate Ice Cream": chocolateIceCreamImg,
+    "Chocolate Milkshake": chocolateMilkshakeImg,
+    "Dairy Milk Chocolate": chocolateBarsImg,
+    "Five Star Chocolate": chocolateBarsImg,
+    "Fresh Lime Soda": freshLimeSodaImg,
+    "Mango Milkshake": mangoMilkshakeImg,
+    "Mojito": mojitoImg,
+    "Vanilla Ice Cream": vanillaIceCreamImg,
+    "Veg Combo Meal": vegComboMealImg,
+    "Veg Meals": vegMealsImg,
+    "Veg Puff": vegPuffImg,
+    "Veg Fried Rice": vegFriedRiceImg,
+    "Veg Burger": vegBurgerImg,
+    "Dal Makhani": dalMakhaniImg,
+    "Cold Coffee": coldCoffeeImg,
     "Egg Dosa": eggDosaImg,
     "Egg Fried Rice": eggFriedRiceImg,
     "Egg Puff": eggPuffImg,
     "Butter Chicken": butterChickenImg,
-    "Cheese Pizza": cheesePizzaImg,
-    "French Fries": frenchFriesImg,
-    "Cold Coffee": coldCoffeeImg,
-    "Vanilla Ice Cream": vanillaIceCreamImg,
-    "Veg Burger": vegBurgerImg,
-    "Dal Makhani": dalMakhaniImg,
-    "Veg Fried Rice": vegFriedRiceImg,
+    "Chicken Combo Meal": chickenComboMealImg,
+    "Chicken Fried Rice": chickenFriedRiceImg,
     "Chicken Burger": chickenBurgerImg,
     "Grilled Chicken": grilledChickenImg,
-    "Veg Puff": vegPuffImg,
     "Chicken Puff": chickenPuffImg,
-    "Chocolate Ice Cream": chocolateIceCreamImg,
+    "Egg Curry": eggCurryImg,
   };
 
   const fetchMenuItems = async () => {
@@ -181,6 +206,7 @@ const MenuUnified = () => {
           const finalPrice = item.is_special_offer
             ? getDiscountedPrice(item.price, item.discount_percentage)
             : item.price;
+          const itemImage = imageMap[item.name] || item.image_url;
 
           return (
             <Card
@@ -188,9 +214,9 @@ const MenuUnified = () => {
               className="overflow-hidden hover:shadow-[var(--shadow-card)] transition-shadow border-2 hover:border-primary/30"
             >
               <div className="relative h-48 bg-muted">
-                {imageMap[item.name] ? (
+                {itemImage ? (
                   <img
-                    src={imageMap[item.name]}
+                    src={itemImage}
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />
